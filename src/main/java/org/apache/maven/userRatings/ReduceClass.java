@@ -1,4 +1,4 @@
-package org.apache.maven.maven;
+package org.apache.maven.userRatings;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -12,14 +12,13 @@ public class ReduceClass extends Reducer<Text, IntWritable, Text, IntWritable>{
 	protected void reduce(Text key, Iterable<IntWritable> values,
 			Reducer<Text, IntWritable, Text, IntWritable>.Context context)
 			throws IOException, InterruptedException {
-	
 		int sum = 0;
 		Iterator<IntWritable> valuesIt = values.iterator();
-		
 		while(valuesIt.hasNext()){
-			sum = sum + ((IntWritable) valuesIt.next()).get();
+			int iterations = valuesIt.next().get();
+			sum += iterations;
 		}
-		
-		context.write(key, new IntWritable(sum));
+		String splitter = key.toString() + ",";
+		context.write(new Text(splitter), new IntWritable(sum));
 	}	
 }

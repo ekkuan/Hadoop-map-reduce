@@ -1,4 +1,4 @@
-package org.apache.maven.maven;
+package org.apache.maven.userRatings;
 
 /**
  * Hello world!
@@ -14,21 +14,19 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class App extends Configured implements Tool{
+public class UserRatings extends Configured implements Tool{
 	
 	public static void main(String[] args) throws Exception{
-		int exitCode = ToolRunner.run(new App(), args);
+		int exitCode = ToolRunner.run(new UserRatings(), args);
 		System.exit(exitCode);
 	}
- 
 	public int run(String[] args) throws Exception {
 		if (args.length != 2) {
 			System.err.printf("Usage: %s needs two arguments, input and output files\n", getClass().getSimpleName());
 			return -1;
 		}
-	
 		Job job = new Job();
-		job.setJarByClass(App.class);
+		job.setJarByClass(UserRatings.class);
 		job.setJobName("WordCounter");
 		
 		FileInputFormat.addInputPath(job, new Path(args[0]));
@@ -48,7 +46,6 @@ public class App extends Configured implements Tool{
 		} else if(!job.isSuccessful()) {
 			System.out.println("Job was not successful");			
 		}
-		
 		return returnValue;
 	}
 }

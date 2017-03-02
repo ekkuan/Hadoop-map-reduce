@@ -1,4 +1,4 @@
-package org.apache.maven.maven;
+package org.apache.maven.userRatings;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -19,11 +19,10 @@ public class MapClass extends Mapper<LongWritable, Text, Text, IntWritable>{
 			throws IOException, InterruptedException {
 		
 		String line = value.toString();
-		StringTokenizer st = new StringTokenizer(line," ");
+		StringTokenizer st = new StringTokenizer(line,",");
+		st.nextToken();
 		
-		while(st.hasMoreTokens()){
-			word.set(st.nextToken());
-			context.write(word,one);
-		}
+		word.set(st.nextToken());
+		context.write(word,one);
 	}
 }
